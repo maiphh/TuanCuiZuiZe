@@ -18,7 +18,7 @@ public class Member {
 
     }
 
-    public Member(String userName, String password, String fullName, int phoneNumber) throws IOException {
+    public Member(String userName, String password, String fullName, int phoneNumber) throws IOException{
         this.userName = userName;
         this.password = password;
         this.fullName = fullName;

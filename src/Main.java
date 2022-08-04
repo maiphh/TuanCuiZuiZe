@@ -54,7 +54,7 @@ public class Main {
 
     public static void guestMenu() {
         System.out.println("-".repeat(20));
-        System.out.println("[1] View all products.\n[2] \nEnter a number: ");
+        System.out.printf("[1] View all products.\n [2]\n [3] Sort product by price \nEnter a number: ");
         String input = sc.nextLine();
         switch (input) {
             case "1":
@@ -64,6 +64,8 @@ public class Main {
 
                 break;
             case "3":
+                ProductDatabase.displayByPrice();
+                break;
 
             case "4":
 
