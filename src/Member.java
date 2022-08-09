@@ -14,7 +14,7 @@ public class Member {
 
     private static String currentUser = null;
 
-    public Member() throws FileNotFoundException {
+    public Member(){
 
     }
 
