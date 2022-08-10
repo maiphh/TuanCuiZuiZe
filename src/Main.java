@@ -109,7 +109,7 @@ public class Main {
         }
     }
 
-    public static void adminMenu() {
+    public static void adminMenu() throws IOException {
         System.out.println("[1] View all products.\n[2]\nEnter a number: ");
         String input = sc.nextLine();
         switch (input) {
@@ -120,9 +120,13 @@ public class Main {
 
                 break;
             case "3":
+                Admin.addProduct();
+                adminMenu();
+                break;
 
             case "4":
-
+                Admin.getInfoByCid();
+                adminMenu();
                 break;
 
             case "0":

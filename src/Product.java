@@ -45,7 +45,14 @@ public class Product {
     public String getCategory() {
         return this.category;
     }
- 
+
+    @Override
+    public String toString() {
+        return pID+","+name+","+description+","+category+","+price+","+quantity;
+   }
+
     // For admin only
     // updatePrice()
 }
+
+
