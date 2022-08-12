@@ -18,7 +18,7 @@ public class ProductDatabase {
 
     static void updateProductDatabase() {
         try {
-            BufferedWriter out = new BufferedWriter(new FileWriter("../Product.csv", false));
+            BufferedWriter out = new BufferedWriter(new FileWriter("Product.csv", false));
             out.write(header + "\n");
             for (Product product:products) {
                 out.write(product.toString()+"\n");
@@ -33,7 +33,7 @@ public class ProductDatabase {
     static void loadProductDatabase() {
         if (loaded) return;
         try {
-            File f = new File("../Product.csv");
+            File f = new File("Product.csv");
             Scanner file = new Scanner(f);
             header = file.nextLine();
             while (file.hasNextLine()) {

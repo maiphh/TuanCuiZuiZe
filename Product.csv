@@ -1,2 +1,4 @@
-ID,Name,Description,Category,Qty,Price
-
+ID,Name,Description,Category,Price,quantity
+1,hello,hello,hello,100,10
+2,world,world,word,50,10
+3,asus,a laptop,lap,1000,100

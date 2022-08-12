@@ -30,7 +30,9 @@ public class Product {
 
     }
     
-    public void displayGeneralInfo() {}
+    public void displayGeneralInfo() {
+        System.out.printf("%s %s %.2f\n",this.pID,this.name,this.price);
+    }
 
     public void displayDetailInfo() {}
 
