@@ -7,7 +7,9 @@ public class Product {
     private int quantity;
 
     private static int currentID = 1;
-    public Product() {}
+
+    public Product() {
+    }
 
     public Product(String name, String description, String category, String price, String quantity) {
         this.name = name;
@@ -15,11 +17,11 @@ public class Product {
         this.category = category;
         this.price = Double.parseDouble(price);
         this.quantity = Integer.parseInt(quantity);
-        
+
         this.pID = "p" + Integer.toString(currentID);
         ++currentID;
     }
-    
+
     public Product(String[] productData) {
         this.pID = productData[0];
         this.name = productData[1];
@@ -29,10 +31,12 @@ public class Product {
         this.quantity = Integer.parseInt(productData[5]);
 
     }
-    
-    public void displayGeneralInfo() {}
 
-    public void displayDetailInfo() {}
+    public void displayGeneralInfo() {
+    }
+
+    public void displayDetailInfo() {
+    }
 
     public Double getPrice() {
         return this.price;
@@ -41,11 +45,15 @@ public class Product {
     public String getID() {
         return this.pID;
     }
-    
+
     public String getCategory() {
         return this.category;
     }
- 
+
+    public String getName() {
+        return this.name;
+    }
+
     // For admin only
     // updatePrice()
 }

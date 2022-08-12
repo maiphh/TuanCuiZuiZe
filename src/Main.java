@@ -8,34 +8,35 @@ public class Main {
 
     public static Scanner sc = new Scanner(System.in);
 
-
     public Main() {
     }
 
     public static void main(String[] args) throws IOException {
+        ProductDatabase.loadProductDatabase();
         loginMenu();
     }
 
     public static void loginMenu() throws IOException {
         System.out.println("-".repeat(20));
-        System.out.println("[1] Login As Guest.\n[2] Login As Member\n[3] Login As Admin\n[4] Register an account\n[0] Exit\nEnter a number: ");
+        System.out.println(
+                "[1] Login As Guest.\n[2] Login As Member\n[3] Login As Admin\n[4] Register an account\n[0] Exit\nEnter a number: ");
         String input = sc.nextLine();
         switch (input) {
             case "1":
                 guestMenu();
                 break;
             case "2":
-                if(Member.loginMember()) {
+                if (Member.loginMember()) {
                     memberMenu();
-                }
-                else loginMenu();
+                } else
+                    loginMenu();
 
                 break;
             case "3":
-                if(Admin.loginAdmin()) {
+                if (Admin.loginAdmin()) {
                     adminMenu();
-                }
-                else loginMenu();
+                } else
+                    loginMenu();
                 break;
 
             case "4":
@@ -48,19 +49,17 @@ public class Main {
                 loginMenu();
                 break;
 
-
         }
     }
 
     public static void guestMenu() {
         System.out.println("-".repeat(20));
-        System.out.printf("[1] View all products.\n [2]\n [3] Sort product by price \nEnter a number: ");
+        System.out.printf("[1] View all products.\n[2]\n[3] Sort product by price \nEnter a number: ");
         String input = sc.nextLine();
         switch (input) {
             case "1":
                 break;
             case "2":
-
 
                 break;
             case "3":
@@ -82,10 +81,8 @@ public class Main {
         }
     }
 
-
-
     public static void memberMenu() throws FileNotFoundException {
-        System.out.println("[1] View all products.\n[2] View info \nEnter a number: ");
+        System.out.println("[1] View all products.\n[2] View info\n[3] Start an order \nEnter a number: ");
         String input = sc.nextLine();
         switch (input) {
             case "1":
@@ -95,6 +92,11 @@ public class Main {
 
                 break;
             case "3":
+                try {
+                    Order.createOrder();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             case "4":
 
@@ -104,7 +106,6 @@ public class Main {
                 System.out.println("Invalid input. Please try again!");
                 guestMenu();
                 break;
-
 
         }
     }
@@ -116,7 +117,6 @@ public class Main {
             case "1":
                 break;
             case "2":
-
 
                 break;
             case "3":
@@ -136,5 +136,3 @@ public class Main {
         }
     }
 }
-
-
