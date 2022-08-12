@@ -33,6 +33,7 @@ public class Product {
     }
 
     public void displayGeneralInfo() {
+        System.out.printf("%s %s %.2f\n", this.pID, this.name, this.price);
     }
 
     public void displayDetailInfo() {
@@ -52,6 +53,11 @@ public class Product {
 
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public String toString() {
+        return pID + "," + name + "," + description + "," + category + "," + price + "," + quantity;
     }
 
     // For admin only

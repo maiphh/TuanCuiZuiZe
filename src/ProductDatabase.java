@@ -39,7 +39,9 @@ public class ProductDatabase {
 
     static void updateProductDatabase() {
         try {
+
             BufferedWriter out = new BufferedWriter(new FileWriter(file.getPath(), false));
+
             out.write(header + "\n");
             for (Product product : products) {
                 out.write(product.toString() + "\n");
@@ -59,6 +61,7 @@ public class ProductDatabase {
             header = sc.nextLine();
             while (sc.hasNextLine()) {
                 String[] productData = sc.nextLine().split(",");
+
                 Product newProduct = new Product(productData);
                 products.add(newProduct);
             }
