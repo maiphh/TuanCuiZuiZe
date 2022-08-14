@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Main {
 
     public static Scanner sc = new Scanner(System.in);
-
+    private static Order currentOrder;
     public Main() {
     }
 
@@ -92,11 +92,12 @@ public class Main {
 
                 break;
             case "3":
-                try {
-                    Order.createOrder();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                // try {
+                //     Order.createOrder();
+                // } catch (Exception e) {
+                //     e.printStackTrace();
+                // }
+                // TRY Order currentOrder = OrderDatabase.createOrder();
 
             case "4":
 
