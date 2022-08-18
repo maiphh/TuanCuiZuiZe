@@ -55,6 +55,10 @@ public class Product {
         return this.name;
     }
 
+    public int getQuantity() {
+        return this.quantity;
+    }
+
     @Override
     public String toString() {
         return pID + "," + name + "," + description + "," + category + "," + price + "," + quantity;

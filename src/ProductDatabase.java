@@ -18,6 +18,19 @@ public class ProductDatabase {
     // loadProductDatabase();
     // }
 
+
+    public static ArrayList<Product> searchByCategory() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter category: ");
+        String input = sc.nextLine();
+        ArrayList<Product> results = new ArrayList<Product>();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getCategory().equals(input) && products.get(i).getQuantity() > 0) {
+                   results.add(products.get(i));
+            }
+        }
+        return results;
+    }
     static Product getProduct() {
         Scanner sc = new Scanner(System.in);
         Product result = null;
