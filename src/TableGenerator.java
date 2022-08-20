@@ -177,6 +177,27 @@ public class TableGenerator {
         // System.out.println(index);
     }
 
+    public static <T> void printTable(List<T> list, String header) {
+        TableGenerator tableGenerator = new TableGenerator();
+        List<String> headersList = new ArrayList<>();
+        List<List<String>> rowsList = new ArrayList<>();
+
+        String[] headers = header.split(",");
+        for (String h : headers) {
+            headersList.add(h);
+        }
+        for (int i = 0; i < list.size(); i++) {
+            String[] line = list.get(i).toString().split(",");
+            List<String> row = new ArrayList<>();
+            for (int j = 0; j < line.length; j++) {
+                row.add(line[j]);
+            }
+            rowsList.add(row);
+        }
+
+        System.out.println(tableGenerator.generateTable(headersList, rowsList));
+    }
+
     public static void printTable(File file) {
         TableGenerator tableGenerator = new TableGenerator();
         List<String> headersList = new ArrayList<>();

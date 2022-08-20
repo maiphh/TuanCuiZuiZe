@@ -3,7 +3,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 public class ProductDatabase {
@@ -17,20 +19,6 @@ public class ProductDatabase {
     // private ProductDatabase() {
     // loadProductDatabase();
     // }
-
-
-    public static ArrayList<Product> searchByCategory() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter category: ");
-        String input = sc.nextLine();
-        ArrayList<Product> results = new ArrayList<Product>();
-        for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getCategory().equals(input) && products.get(i).getQuantity() > 0) {
-                   results.add(products.get(i));
-            }
-        }
-        return results;
-    }
     static Product getProduct() {
         Scanner sc = new Scanner(System.in);
         Product result = null;
@@ -93,6 +81,16 @@ public class ProductDatabase {
     }
 
     static void displayByCategory() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter category: ");
+        String input = sc.nextLine();
+        ArrayList<Product> results = new ArrayList<Product>();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getCategory().equals(input) && products.get(i).getQuantity() > 0) {
+                results.add(products.get(i));
+            }
+        }
+        TableGenerator.printTable(results, header);
     }
 
     //
@@ -114,9 +112,13 @@ public class ProductDatabase {
                 return (int) (p1.getPrice() - p2.getPrice());
             }
         });
-        for (Product i : sortPrice) {
-            i.displayGeneralInfo();
-        }
+
+        List<Product> list = Arrays.asList(sortPrice);
+
+        // for (Product i : sortPrice) {
+        // i.displayGeneralInfo();
+        // }
+        TableGenerator.printTable(list, header);
     }
 
     // For admin
