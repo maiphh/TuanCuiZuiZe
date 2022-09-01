@@ -9,7 +9,7 @@ public class Member {
     private String password;
     private String fullName;
     private int phoneNumber;
-    private long spending;
+    private double spending;
     private double discount = 0;
     private final long SILVER_MEM = 5_000_000;
     private final long GOLD_MEM = 10_000_000;
@@ -132,7 +132,7 @@ public class Member {
     }
 
     public void buy(Order order) {
-        this.spending = (this.getSpending() + order.calculatePrice());
+        this.spending = (this.getSpending() + order.getBill());
         this.checkUpgrade();
     }
 
@@ -140,7 +140,7 @@ public class Member {
         return this.discount;
     }
 
-    public long getSpending() {
+    public double getSpending() {
         return this.spending;
     }
 
