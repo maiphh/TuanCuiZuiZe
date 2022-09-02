@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Member {
-    private int customerId;
+    private String customerId;
     private String userName;
     private String password;
     private String fullName;
@@ -29,7 +29,7 @@ public class Member {
         this.phoneNumber = phoneNumber;
         this.spending = 0;
         count++;
-        customerId = count;
+        customerId = "u" + count;
 
         File f = new File("Customer.csv");
         Scanner file = new Scanner(f);
@@ -180,11 +180,11 @@ public class Member {
 
     }
 
-    public int getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 

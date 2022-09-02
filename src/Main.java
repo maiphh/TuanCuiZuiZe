@@ -60,88 +60,109 @@ public class Main {
     public static void guestMenu() {
         System.out.println("-".repeat(20));
         System.out.printf("[1] View all products.\n[2]\n[3] Sort product by price \nEnter a number: ");
-        String input = sc.nextLine();
-        switch (input) {
-            case "1":
-                break;
-            case "2":
+        String input;
+        while (true) {
+            input = sc.nextLine();
+            switch (input) {
+                case "1":
+                    break;
+                case "2":
 
-                break;
-            case "3":
-                ProductDatabase.displayByPrice();
-                break;
+                    break;
+                case "3":
+                    ProductDatabase.displayByPrice();
+                    break;
 
-            case "4":
+                case "4":
 
-                break;
+                    break;
 
-            case "0":
-                break;
+                case "0":
+                    break;
 
-            default:
-                System.out.println("Invalid input. Please try again!");
-                guestMenu();
-                break;
+                default:
+                    System.out.println("Invalid input. Please try again!");
+                    guestMenu();
+                    break;
 
+            }
         }
+
     }
 
     public static void memberMenu() throws FileNotFoundException {
         System.out.println("[1] View all products.\n[2] View info\n[3] Start an order \nEnter a number: ");
-        String input = sc.nextLine();
-        switch (input) {
-            case "1":
-                break;
-            case "2":
-                System.out.println(Member.displayInfo());
-                break;
-            case "3":
-                // try {
-                //     Order.createOrder();
-                // } catch (Exception e) {
-                //     e.printStackTrace();
-                // }
-                // TRY Order currentOrder = OrderDatabase.createOrder();
+        String input;
+        while (true) {
+            input = sc.nextLine();
+            if (input.equals("0")) break;
+            switch (input) {
+                case "1":
+                    break;
+                case "2":
+                    System.out.println(Member.displayInfo());
+                    break;
+                case "3":
+                    placeOrder();
+                    return;
 
-            case "4":
+                case "4":
 
-                break;
+                    break;
+                case "5":
+                default:
+                    System.out.println("Invalid input. Please try again!");
+                    guestMenu();
+                    break;
 
-            default:
-                System.out.println("Invalid input. Please try again!");
-                guestMenu();
-                break;
-
+            }
         }
+
     }
 
     public static void adminMenu() throws IOException {
         System.out.println("[1] View all products.\n[2]\nEnter a number: ");
-        String input = sc.nextLine();
-        switch (input) {
-            case "1":
-                break;
-            case "2":
+        String input;
+        while (true) {
+            input = sc.nextLine();
+            if (input.equals("0")) break;
+            switch (input) {
+                case "1":
+                    break;
+                case "2":
 
-                break;
-            case "3":
-                Admin.addProduct();
-                adminMenu();
-                break;
+                    break;
+                case "3":
+                    Admin.addProduct();
+                    adminMenu();
+                    break;
 
-            case "4":
-                Admin.getInfoByCid();
-                adminMenu();
-                break;
+                case "4":
+                    Admin.getInfoByCid();
+                    adminMenu();
+                    break;
 
-            case "0":
-                break;
+                case "0":
+                    break;
 
-            default:
-                System.out.println("Invalid input. Please try again!");
-                guestMenu();
-                break;
+                default:
+                    System.out.println("Invalid input. Please try again!");
+                    guestMenu();
+                    break;
 
+            }
         }
+
+    }
+
+    static void placeOrder() {
+        if (currentOrder != null) {
+            System.out.println("You already place your order");
+            return;
+        }
+        // currentOrder = OrderDatabase.createOrder(currentMember.getID());
+        currentOrder = new Order(currentMember.getCustomerId());
+        System.out.println("Order succesfully place");
+        return;
     }
 }

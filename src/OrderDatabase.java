@@ -37,8 +37,8 @@ public class OrderDatabase {
         String[] orderItem = null;
         if (loaded) return;
         try {
-            File f1 = new File("./Database/Order.csv");
-            File f2 = new File("./Database/OrderItem.csv");
+            File f1 = new File("Order.csv");
+            File f2 = new File("OrderItem.csv");
             Scanner file = new Scanner(f1);
             Scanner file2 = new Scanner(f2);
             header = file.nextLine();
@@ -73,7 +73,7 @@ public class OrderDatabase {
 
     static void updateOrderDatabase() {
         try {
-            BufferedWriter out = new BufferedWriter(new FileWriter("./Database/Order.csv", false));
+            BufferedWriter out = new BufferedWriter(new FileWriter("Order.csv", false));
             out.write(header+"\n");
             for (Order order : orders) {
                 out.write(order.toString()+"\n");
@@ -84,7 +84,7 @@ public class OrderDatabase {
             System.out.println(e.getMessage());
         }
         try {
-            BufferedWriter out2 = new BufferedWriter(new FileWriter("./Database/OrderItem.csv",false));
+            BufferedWriter out2 = new BufferedWriter(new FileWriter("OrderItem.csv",false));
             out2.write(header2+"\n");
             for (Order order : orders) {
                 String[] orderItemData = order.productsToString();
@@ -120,7 +120,7 @@ public class OrderDatabase {
         // for (Order order:orders) {
         //     order.displayInfo();
         // }
-        TableGenerator.printTable(new File("./Database/Order.csv"));
+        TableGenerator.printTable(new File("Order.csv"));
     }
     
     static void displayAllOrderByCustomerId() {
