@@ -56,10 +56,11 @@ public class Main {
     }
 
     public static void guestMenu() throws IOException {
-        System.out.println("-".repeat(20));
-        System.out.printf("[1] View all products\n[2] Search Product by category \n[3] Sort product by price \n[4] Register an account \n[0] Exit \nEnter a number: ");
+//
         String input;
         while (true) {
+            System.out.println("-".repeat(20));
+            System.out.printf("[1] View all products\n[2] Search Product by category \n[3] Sort product by price \n[4] Register an account \n[0] Exit \nEnter a number: ");
             input = sc.nextLine();
             if (input.equals("0")) break;
             switch (input) {
@@ -88,9 +89,9 @@ public class Main {
     }
 
     public static void memberMenu() throws IOException {
-        System.out.println("[1] View all products\n[2] Search Product by category \n[3] Sort product by price\n[4] Start an order \n[5] View information of order by Order ID\n[6] View Personal Info\n [0] Exit\nEnter a number: ");
         String input;
         while (true) {
+            System.out.println("[1] View all products\n[2] Search Product by category \n[3] Sort product by price\n[4] Start an order \n[5] View information of order by Order ID\n[6] View Personal Info\n[0] Exit\nEnter a number: ");
             input = sc.nextLine();
             if (input.equals("0")) break;
             switch (input) {
@@ -126,9 +127,9 @@ public class Main {
     }
 
     public static void adminMenu() throws IOException {
-        System.out.println("[1] View all products\n[2] View all Members\n[3] View all Orders\n[4] Add new products\n[5] Update price\n[6] Get information of Order by Customer ID\n[7] Change status of Order\n[0] Exit\nEnter a number: ");
         String input;
         while (true) {
+            System.out.println("[1] View all products\n[2] View all Members\n[3] View all Orders\n[4] Add new products\n[5] Update price\n[6] Get information of Order by Customer ID\n[7] Change status of Order\n[0] Exit\nEnter a number: ");
             input = sc.nextLine();
             if (input.equals("0")) break;
             switch (input) {
