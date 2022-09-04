@@ -3,8 +3,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -75,9 +75,7 @@ public class ProductDatabase {
 
     static void displayAll() {
         loadProductDatabase();
-        for (Product product : products) {
-            product.displayGeneralInfo();
-        }
+        TableGenerator.printTable(file);
     }
 
     static void displayByCategory() {
@@ -94,8 +92,6 @@ public class ProductDatabase {
     }
 
     //
-    static void displaySpecific() {
-    }
 
     static void displayByPrice() {
         loadProductDatabase();
@@ -120,10 +116,64 @@ public class ProductDatabase {
         // }
         TableGenerator.printTable(list, header);
     }
+    static void updateQuantity(HashMap<String,Integer> productQuantity) {
+        for (String i : productQuantity.keySet()) {
+            int index = Integer.parseInt(i.substring(1))-1;
+            products.get(index).setQuantity(productQuantity.get(i));
+        }
+    } 
+
+    static void displaySpecific() {
+          // consider doing index search to be more efficient later
+          loadProductDatabase();
+          Scanner input = new Scanner(System.in);
+          System.out.println("Enter the product id: ");
+          String id = input.nextLine();
+          // input.close();
+          for (Product product : products) {
+              if (product.getID().equals(id)) {
+                  product.displayDetailInfo();
+                  return;
+              }
+          }
+          System.out.println("Product with that id doesn't exist");
+  
+    }
 
     // For admin
     // addProduct
     static void addProduct() {
+        loadProductDatabase();
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter product name:");
+        String name = input.nextLine();
+        System.out.println("Enter product description:");
+        String description = input.nextLine();
+        System.out.println("Enter product category:");
+        String category = input.nextLine();
+        System.out.println("Enter product quantity:");
+        String quantity = input.nextLine();
+        System.out.println("Enter product price:");
+        String price = input.nextLine();
+        products.add(new Product(name, description, category, price, quantity));
+        // Category.addCategory(category);
+        System.out.println("Product added successfully");
+        updateProductDatabase();
+    }
+    static void updatePrice() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the wanted update price product");
+        String upPriceProduct = input.nextLine();
+        
+        // Add validation to the input later (MUST ADD);
+
+        int wantedIndex = Integer.parseInt(upPriceProduct.substring(1)) - 1;
+        Product wantedProduct = products.get(wantedIndex);
+        System.out.println("Enter wanted price: ");
+        double newPrice = input.nextDouble();
+        wantedProduct.setPrice(newPrice);
+        // input.close();
+        updateProductDatabase();
     }
 
 }
