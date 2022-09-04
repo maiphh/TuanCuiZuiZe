@@ -23,7 +23,7 @@ public class Main {
         
             System.out.println("-".repeat(20));
             System.out.println(
-                    "[1] Login As Guest.\n[2] Login As Member\n[3] Login As Admin\n[4] Register an account\n[0] Exit\nEnter a number: ");
+                    "[1] Login As Guest\n[2] Login As Member\n[3] Login As Admin\n[4] Register an account\n[0] Exit\nEnter a number: ");
             input = sc.nextLine();
             if (input.equals("0")) break;
             switch (input) {
@@ -39,9 +39,7 @@ public class Main {
                     if (Admin.loginAdmin()) {
                         adminMenu();
                     } 
-                    // else
-                    //     loginMenu();
-                    // break;
+                    break;
 
                 case "4":
                     currentMember = Member.createMember();
@@ -57,32 +55,31 @@ public class Main {
         }
     }
 
-    public static void guestMenu() {
+    public static void guestMenu() throws IOException {
         System.out.println("-".repeat(20));
-        System.out.printf("[1] View all products.\n[2]\n[3] Sort product by price \nEnter a number: ");
+        System.out.printf("[1] View all products\n[2] Search Product by category \n[3] Sort product by price \n[4] Register an account \n[0] Exit \nEnter a number: ");
         String input;
         while (true) {
             input = sc.nextLine();
+            if (input.equals("0")) break;
             switch (input) {
                 case "1":
+//                    View All Products
                     break;
                 case "2":
-
+//                    Search Product by category
                     break;
                 case "3":
                     ProductDatabase.displayByPrice();
                     break;
 
                 case "4":
-
-                    break;
-
-                case "0":
+                    currentMember = Member.createMember();
+                    loginMenu();
                     break;
 
                 default:
                     System.out.println("Invalid input. Please try again!");
-                    guestMenu();
                     break;
 
             }
@@ -90,29 +87,37 @@ public class Main {
 
     }
 
-    public static void memberMenu() throws FileNotFoundException {
-        System.out.println("[1] View all products.\n[2] View info\n[3] Start an order \nEnter a number: ");
+    public static void memberMenu() throws IOException {
+        System.out.println("[1] View all products\n[2] Search Product by category \n[3] Sort product by price\n[4] Start an order \n[5] View information of order by Order ID\n[6] View Personal Info\n [0] Exit\nEnter a number: ");
         String input;
         while (true) {
             input = sc.nextLine();
             if (input.equals("0")) break;
             switch (input) {
                 case "1":
+//                    View All Product
                     break;
+
                 case "2":
-                    System.out.println(Member.displayInfo());
+//                    Search Product by category
                     break;
                 case "3":
-                    placeOrder();
-                    return;
+                    ProductDatabase.displayByPrice();
+                    break;
 
                 case "4":
-
+                    placeOrder();
                     break;
+
                 case "5":
+//                 View Information of Order by Order ID
+
+                case "6":
+                    System.out.println(Member.displayInfo());
+                    break;
+
                 default:
                     System.out.println("Invalid input. Please try again!");
-                    guestMenu();
                     break;
 
             }
@@ -121,33 +126,39 @@ public class Main {
     }
 
     public static void adminMenu() throws IOException {
-        System.out.println("[1] View all products.\n[2]\nEnter a number: ");
+        System.out.println("[1] View all products\n[2] View all Members\n[3] View all Orders\n[4] Add new products\n[5] Update price\n[6] Get information of Order by Customer ID\n[7] Change status of Order\n[0] Exit\nEnter a number: ");
         String input;
         while (true) {
             input = sc.nextLine();
             if (input.equals("0")) break;
             switch (input) {
                 case "1":
+//                    view All products
                     break;
                 case "2":
-
+//                    view All members
                     break;
                 case "3":
-                    Admin.addProduct();
-                    adminMenu();
+//                    view All orders
                     break;
-
                 case "4":
-                    Admin.getInfoByCid();
-                    adminMenu();
+                    Admin.addProduct();
                     break;
 
-                case "0":
+                case "5":
+//                    Update Price
+                    break;
+
+                case "6":
+                    Admin.getInfoByCid();
+                    break;
+
+                case "7":
+//                    Change order status
                     break;
 
                 default:
                     System.out.println("Invalid input. Please try again!");
-                    guestMenu();
                     break;
 
             }
