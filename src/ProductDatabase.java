@@ -8,32 +8,39 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class ProductDatabase {
+public class ProductDatabase extends Database implements Public {
     private static ArrayList<Product> products = new ArrayList<>();
 
     // private static File file = new File("../Product.csv");
-    private static File file = new File("Product.csv");
+    private static File file = new File("TuanCuiZuiZe/Product.csv");
     private static boolean loaded = false;
     private static String header = "";
 
     // private ProductDatabase() {
     // loadProductDatabase();
     // }
-    static Product getProduct() {
-        Scanner sc = new Scanner(System.in);
-        Product result = null;
-        // System.out.println(products);
-        System.out.println("Enter product name");
-        String productName = sc.nextLine();
-        if (productName.equals("q")) {
-            return null;
-        } else {
-            for (Product product : products) {
-                if (product.getName().equals(productName)) {
-                    result = product;
+    public Product getProduct() {
+
+        if (this.checkCompatibility()) {
+
+            Scanner sc = new Scanner(System.in);
+            Product result = null;
+
+            System.out.println("Enter product name");
+            String productName = sc.nextLine();
+            if (productName.equals("q")) {
+                return null;
+            } else {
+                for (Product product : products) {
+                    if (product.getName().equals(productName)) {
+                        result = product;
+                    }
                 }
+                return result;
             }
-            return result;
+        } else {
+            System.out.println("You don't have access to this functionality");
+            return null;
         }
 
     }
@@ -73,12 +80,20 @@ public class ProductDatabase {
         }
     }
 
-    static void displayAll() {
+    public void displayAll() {
+
+        if (!this.checkCompatibility()) {
+            return;
+        }
         loadProductDatabase();
         TableGenerator.printTable(file);
     }
 
-    static void displayByCategory() {
+    public void displayByCategory() {
+
+        if (!this.checkCompatibility()) {
+            return;
+        }
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter category: ");
         String input = sc.nextLine();
@@ -93,7 +108,11 @@ public class ProductDatabase {
 
     //
 
-    static void displayByPrice() {
+    public void displayByPrice() {
+
+        if (!this.checkCompatibility()) {
+            return;
+        }
         loadProductDatabase();
         int numsProduct = products.size();
         Product[] sortPrice = new Product[numsProduct];
@@ -116,33 +135,42 @@ public class ProductDatabase {
         // }
         TableGenerator.printTable(list, header);
     }
-    static void updateQuantity(HashMap<String,Integer> productQuantity) {
+
+    static void updateQuantity(HashMap<String, Integer> productQuantity) {
         for (String i : productQuantity.keySet()) {
-            int index = Integer.parseInt(i.substring(1))-1;
+            int index = Integer.parseInt(i.substring(1)) - 1;
             products.get(index).setQuantity(productQuantity.get(i));
         }
-    } 
+    }
 
-    static void displaySpecific() {
-          // consider doing index search to be more efficient later
-          loadProductDatabase();
-          Scanner input = new Scanner(System.in);
-          System.out.println("Enter the product id: ");
-          String id = input.nextLine();
-          // input.close();
-          for (Product product : products) {
-              if (product.getID().equals(id)) {
-                  product.displayDetailInfo();
-                  return;
-              }
-          }
-          System.out.println("Product with that id doesn't exist");
-  
+    public void displaySpecific() {
+
+        if (!this.checkCompatibility()) {
+            return;
+        }
+        // consider doing index search to be more efficient later
+        loadProductDatabase();
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the product id: ");
+        String id = input.nextLine();
+        // input.close();
+        for (Product product : products) {
+            if (product.getID().equals(id)) {
+                product.displayDetailInfo();
+                return;
+            }
+        }
+        System.out.println("Product with that id doesn't exist");
+
     }
 
     // For admin
     // addProduct
-    static void addProduct() {
+    public void addProduct() {
+
+        if (!this.checkCompatibility()) {
+            return;
+        }
         loadProductDatabase();
         Scanner input = new Scanner(System.in);
         System.out.println("Enter product name:");
@@ -160,11 +188,16 @@ public class ProductDatabase {
         System.out.println("Product added successfully");
         updateProductDatabase();
     }
-    static void updatePrice() {
+
+    public void updatePrice() {
+
+        if (!this.checkCompatibility()) {
+            return;
+        }
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the wanted update price product");
         String upPriceProduct = input.nextLine();
-        
+
         // Add validation to the input later (MUST ADD);
 
         int wantedIndex = Integer.parseInt(upPriceProduct.substring(1)) - 1;
@@ -174,6 +207,16 @@ public class ProductDatabase {
         wantedProduct.setPrice(newPrice);
         // input.close();
         updateProductDatabase();
+    }
+
+    @Override
+    public ArrayList<Product> getList() {
+        return products;
+    }
+
+    @Override
+    public String getHeader() {
+        return header;
     }
 
 }

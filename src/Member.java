@@ -1,9 +1,12 @@
 import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Member {
+public class Member extends User {
     private String customerId;
     private String userName;
     private String password;
@@ -15,7 +18,7 @@ public class Member {
     private final long GOLD_MEM = 10_000_000;
     private final long DIAMOND_MEM = 25_000_000;
     private static int count = 0;
-
+    private static boolean loggedIn = false;
     public static Member currentUser = null;
 
     public Member() {
@@ -31,7 +34,7 @@ public class Member {
         count++;
         customerId = "u" + count;
 
-        File f = new File("Customer.csv");
+        File f = new File("TuanCuiZuiZe/Customer.csv");
         Scanner file = new Scanner(f);
         while (file.hasNextLine()) {
             String fileLine = file.nextLine();
@@ -46,9 +49,28 @@ public class Member {
         }
 
         System.out.println("Create successfully!");
-        BufferedWriter out = new BufferedWriter(new FileWriter("Customer.csv", true));
+        BufferedWriter out = new BufferedWriter(new FileWriter("TuanCuiZuiZe/Customer.csv", true));
         out.write(this.toString() + "\n");
         out.close();
+    }
+
+    public Member(String[] data) throws NoSuchMethodException, SecurityException, IllegalAccessException,
+            IllegalArgumentException, InvocationTargetException {
+        Field[] f = this.getClass().getDeclaredFields();
+
+        for (int i = 0; i < data.length; i++) {
+            if (!(f[i].getType().equals(((Object) data[i]).getClass()))) {
+
+                Object wrapped = f[i].get(this);
+                Class<?> c = wrapped.getClass();
+
+                Method m = (c.getMethod("valueOf", ((Object) data[i]).getClass()));
+                Object j = m.invoke(null, data[i]);
+                f[i].set(this, j);
+            } else {
+                f[i].set(this, data[i]);
+            }
+        }
     }
 
     public static Member createMember() throws IOException {
@@ -79,7 +101,7 @@ public class Member {
         System.out.println("Password: ");
         String pass = sc.nextLine();
 
-        File f = new File("Customer.csv");
+        File f = new File("TuanCuiZuiZe/Customer.csv");
         Scanner file = new Scanner(f);
         while (file.hasNextLine()) {
             String fileLine = file.nextLine();
@@ -90,7 +112,8 @@ public class Member {
                     System.out.println("-".repeat(20));
                     System.out.println("Hello " + username + ".");
                     // currentUser = username;
-                    return true;
+                    loggedIn = true;
+                    return loggedIn;
                 }
             }
 
@@ -99,26 +122,54 @@ public class Member {
         return false;
     }
 
-    public static String displayInfo() throws FileNotFoundException {
-        File f = new File("Customer.csv");
-        Scanner file = new Scanner(f);
-        while (file.hasNextLine()) {
-            String fileLine = file.nextLine();
-            String[] fileLineArray = fileLine.split(",");
-            if (fileLine != "") {
-                if (fileLineArray[1].equals(currentUser.getUserName())) {
-                    return "Member{" +
-                            "customerId=" + fileLineArray[0] +
-                            ", userName='" + fileLineArray[1] + '\'' +
-                            ", password='" + fileLineArray[2] + '\'' +
-                            ", fullName='" + fileLineArray[3] + '\'' +
-                            ", phoneNumber=" + fileLineArray[4] +
-                            ", spending=" + fileLineArray[5] +
-                            '}';
-                }
-            }
+    public void displayInfo() throws FileNotFoundException {
+        // File f = new File("Customer.csv");
+        // Scanner file = new Scanner(f);
+        // while (file.hasNextLine()) {
+        // String fileLine = file.nextLine();
+        // String[] fileLineArray = fileLine.split(",");
+        // if (fileLine != "") {
+        // if (fileLineArray[1].equals(currentUser.getUserName())) {
+        // return "Member{" +
+        // "customerId=" + fileLineArray[0] +
+        // ", userName='" + fileLineArray[1] + '\'' +
+        // ", password='" + fileLineArray[2] + '\'' +
+        // ", fullName='" + fileLineArray[3] + '\'' +
+        // ", phoneNumber=" + fileLineArray[4] +
+        // ", spending=" + fileLineArray[5] +
+        // '}';
+        // }
+        // }
+        // }
+        // return null;
+        if (loggedIn) {
+            (new PersonalMemberDatabase()).displayAll();
         }
-        return null;
+    }
+
+    public void viewAllProducts() {
+        if (loggedIn) {
+            (new ProductDatabase()).displayAll();
+        }
+    }
+
+    public void searchProductByCategory() {
+        if (loggedIn) {
+            (new ProductDatabase()).displayByCategory();
+            ;
+        }
+    }
+
+    public void displayByPrice() throws FileNotFoundException {
+        if (loggedIn) {
+            (new ProductDatabase()).displayByPrice();
+        }
+    }
+
+    public void viewOrderByID() {
+        if (loggedIn) {
+            (new PersonalOrderDatabase()).viewOrderByID();
+        }
     }
 
     public void checkUpgrade() {

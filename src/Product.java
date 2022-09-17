@@ -62,9 +62,11 @@ public class Product {
     public void setPrice(Double price) {
         this.price = price;
     }
+
     public void setQuantity(int quantity) {
         this.quantity -= quantity;
     }
+
     @Override
     public String toString() {
         return pID + "," + name + "," + description + "," + category + "," + price + "," + quantity;
