@@ -4,9 +4,35 @@ import java.util.Scanner;
 
 public class MemberDatabase extends Database implements Manager {
     private static ArrayList<Member> list = new ArrayList<>();
-    private static File file = new File("TuanCuiZuiZe/Customer.csv");
+    private static File file = new File("Customer.csv");
     private static boolean loaded = false;
     private static String header = "";
+    private static int count = 0;
+
+    MemberDatabase() {
+
+    }
+
+    public int getCount() {
+        int result = 0;
+        try {
+
+            Scanner sc = new Scanner(file);
+            header = sc.nextLine();
+            System.out.println("start");
+            while (!sc.nextLine().equals(null)) {
+                System.out.println("between");
+                result++;
+            }
+            System.out.println("end");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        count = result;
+        return count;
+
+    }
 
     public void load() {
         if (loaded)
@@ -20,8 +46,10 @@ public class MemberDatabase extends Database implements Manager {
 
                 Member newMember = new Member(data);
                 list.add(newMember);
+                count++;
             }
             loaded = true;
+            // lastIndex = list.size();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -41,6 +69,7 @@ public class MemberDatabase extends Database implements Manager {
     }
 
     public void displayAll() {
+        load();
         if (!this.checkCompatibility()) {
             return;
         }
@@ -49,6 +78,7 @@ public class MemberDatabase extends Database implements Manager {
 
     @Override
     public ArrayList<Member> getList() {
+        load();
         return list;
     }
 

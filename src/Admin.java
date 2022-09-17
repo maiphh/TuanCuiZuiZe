@@ -28,24 +28,9 @@ public class Admin extends User {
     }
 
     public void addProduct() throws IOException {
-        System.out.println("-Adding new product-");
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter product name: ");
-        String name = sc.nextLine();
-        System.out.println("Enter product description: ");
-        String des = sc.nextLine();
-        System.out.println("Enter product category: ");
-        String category = sc.nextLine();
-        System.out.println("Enter product price: ");
-        String price = sc.nextLine();
-        System.out.println("Enter product quantity: ");
-        String quantity = sc.nextLine();
-
-        Product newProduct = new Product(name, des, category, price, quantity);
-        BufferedWriter out = new BufferedWriter(new FileWriter("Product.csv", true));
-        out.write(newProduct.toString() + "\n");
-        out.close();
-        System.out.println("Added successfully!");
+        if (loggedIn) {
+            ((new ProductDatabase())).addProduct();
+        }
 
     }
 

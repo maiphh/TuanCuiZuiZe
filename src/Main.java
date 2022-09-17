@@ -14,8 +14,15 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
+        System.out.println("helo");
+
         AccessMapping accessMap = new AccessMapping();
-        ProductDatabase.loadProductDatabase();
+        MemberDatabase md = new MemberDatabase();
+        // System.out.println(md.getCount());
+        System.out.println(md.getList());
+        // System.out.println(md.getCount());
+        // System.out.println((new MemberDatabase()).getList());
+        // ProductDatabase.loadProductDatabase();
         loginMenu();
     }
 
@@ -100,6 +107,7 @@ public class Main {
 
     public static void memberMenu() throws IOException {
         User.currentUser = Member.currentUser;
+        // System.out.println((new PersonalMemberDatabase()).getList());
         Member member = (Member) User.currentUser;
         String input;
         while (true) {
@@ -111,14 +119,19 @@ public class Main {
             switch (input) {
                 case "1":
                     // View All Product
+                    // checked
                     member.viewAllProducts();
                     break;
 
                 case "2":
                     // Search Product by category
+                    // checked
+
                     member.searchProductByCategory();
                     break;
                 case "3":
+                    // checked
+
                     member.displayByPrice();
                     break;
 
@@ -132,6 +145,7 @@ public class Main {
 
                 case "6":
                     // System.out.println(member.displayInfo());
+                    // checked
                     member.displayInfo();
                     break;
 
@@ -193,13 +207,17 @@ public class Main {
     }
 
     static void placeOrder() {
+        if (Member.currentUser.equals(null)) {
+            System.out.println("You have not signed in!!!");
+            return;
+        }
         if (currentOrder != null) {
             System.out.println("You already place your order");
             return;
         }
         // currentOrder = OrderDatabase.createOrder(currentMember.getID());
-        currentOrder = new Order(currentMember.getCustomerId());
-        System.out.println("Order succesfully place");
+        currentOrder = new Order(Member.currentUser.getCustomerId());
+        System.out.println("Order succesfully started");
         return;
     }
 }

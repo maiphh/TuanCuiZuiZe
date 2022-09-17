@@ -17,7 +17,7 @@ public class AccessMapping {
         map.put(Manager.class, managerSet);
         map.put(Personalized.class, personalizedSet);
         map.put(Public.class, publicSet);
-        System.out.println(map);
+
     }
 
     public static HashMap<Class<?>, HashSet<Class<?>>> getAccessMap() {

@@ -12,9 +12,10 @@ public class ProductDatabase extends Database implements Public {
     private static ArrayList<Product> products = new ArrayList<>();
 
     // private static File file = new File("../Product.csv");
-    private static File file = new File("TuanCuiZuiZe/Product.csv");
+    private static File file = new File("Product.csv");
     private static boolean loaded = false;
     private static String header = "";
+    private static int count = 0;
 
     // private ProductDatabase() {
     // loadProductDatabase();
@@ -60,6 +61,11 @@ public class ProductDatabase extends Database implements Public {
         }
     }
 
+    // public int getCount() {
+    // loadProductDatabase();
+    // return count;
+    // }
+
     static void loadProductDatabase() {
         if (loaded)
             return;
@@ -72,6 +78,7 @@ public class ProductDatabase extends Database implements Public {
 
                 Product newProduct = new Product(productData);
                 products.add(newProduct);
+                count++;
             }
             loaded = true;
 
@@ -87,6 +94,7 @@ public class ProductDatabase extends Database implements Public {
         }
         loadProductDatabase();
         TableGenerator.printTable(file);
+        // TableGenerator.printTable(products, header);
     }
 
     public void displayByCategory() {

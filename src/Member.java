@@ -11,13 +11,16 @@ public class Member extends User {
     private String userName;
     private String password;
     private String fullName;
-    private int phoneNumber;
+    private String phoneNumber;
     private double spending;
     private double discount = 0;
     private final long SILVER_MEM = 5_000_000;
     private final long GOLD_MEM = 10_000_000;
     private final long DIAMOND_MEM = 25_000_000;
-    private static int count = 0;
+
+    // static MemberDatabase md = new MemberDatabase();
+    // private static int count = md.getCount();
+    private static int count = (new MemberDatabase()).getCount();
     private static boolean loggedIn = false;
     public static Member currentUser = null;
 
@@ -25,7 +28,7 @@ public class Member extends User {
 
     }
 
-    public Member(String userName, String password, String fullName, int phoneNumber) throws IOException {
+    public Member(String userName, String password, String fullName, String phoneNumber) throws IOException {
         this.userName = userName;
         this.password = password;
         this.fullName = fullName;
@@ -34,7 +37,7 @@ public class Member extends User {
         count++;
         customerId = "u" + count;
 
-        File f = new File("TuanCuiZuiZe/Customer.csv");
+        File f = new File("Customer.csv");
         Scanner file = new Scanner(f);
         while (file.hasNextLine()) {
             String fileLine = file.nextLine();
@@ -49,28 +52,35 @@ public class Member extends User {
         }
 
         System.out.println("Create successfully!");
-        BufferedWriter out = new BufferedWriter(new FileWriter("TuanCuiZuiZe/Customer.csv", true));
+        BufferedWriter out = new BufferedWriter(new FileWriter("Customer.csv", true));
         out.write(this.toString() + "\n");
         out.close();
     }
 
     public Member(String[] data) throws NoSuchMethodException, SecurityException, IllegalAccessException,
             IllegalArgumentException, InvocationTargetException {
-        Field[] f = this.getClass().getDeclaredFields();
+        // Field[] f = this.getClass().getDeclaredFields();
 
-        for (int i = 0; i < data.length; i++) {
-            if (!(f[i].getType().equals(((Object) data[i]).getClass()))) {
+        // for (int i = 0; i < data.length; i++) {
+        // if (!(f[i].getType().equals(((Object) data[i]).getClass()))) {
 
-                Object wrapped = f[i].get(this);
-                Class<?> c = wrapped.getClass();
+        // Object wrapped = f[i].get(this);
+        // Class<?> c = wrapped.getClass();
 
-                Method m = (c.getMethod("valueOf", ((Object) data[i]).getClass()));
-                Object j = m.invoke(null, data[i]);
-                f[i].set(this, j);
-            } else {
-                f[i].set(this, data[i]);
-            }
-        }
+        // Method m = (c.getMethod("valueOf", ((Object) data[i]).getClass()));
+        // Object j = m.invoke(null, data[i]);
+        // f[i].set(this, j);
+        // } else {
+        // f[i].set(this, data[i]);
+        // }
+        // }
+        this.customerId = data[0];
+        this.userName = data[1];
+        this.password = data[2];
+        this.fullName = data[3];
+        this.phoneNumber = data[4];
+        this.spending = Double.parseDouble(data[5]);
+
     }
 
     public static Member createMember() throws IOException {
@@ -82,16 +92,10 @@ public class Member extends User {
         System.out.println("Full Name: ");
         String fullName = sc.nextLine();
         System.out.println("Phone number: ");
-        try {
-            int phoneNum = sc.nextInt();
-            sc.nextLine();
-            return new Member(username, pass, fullName, phoneNum);
-        } catch (Exception e) {
-            System.out.println("Invalid input");
-            createMember();
-        }
 
-        return null;
+        String phoneNum = sc.nextLine();
+        return new Member(username, pass, fullName, phoneNum);
+
     }
 
     public static boolean loginMember() throws FileNotFoundException {
@@ -100,23 +104,15 @@ public class Member extends User {
         String username = sc.nextLine();
         System.out.println("Password: ");
         String pass = sc.nextLine();
-
-        File f = new File("TuanCuiZuiZe/Customer.csv");
-        Scanner file = new Scanner(f);
-        while (file.hasNextLine()) {
-            String fileLine = file.nextLine();
-            String[] fileLineArray = fileLine.split(",");
-            if (fileLine != "") {
-                if (fileLineArray[1].equals(username) && fileLineArray[2].equals(pass)) {
-                    System.out.println("Log in Success");
-                    System.out.println("-".repeat(20));
-                    System.out.println("Hello " + username + ".");
-                    // currentUser = username;
-                    loggedIn = true;
-                    return loggedIn;
-                }
+        for (Member member : (new MemberDatabase()).getList()) {
+            if (member.getUserName().equals(username) && member.getPassword().equals(pass)) {
+                currentUser = member;
+                System.out.println("Log in Success");
+                System.out.println("-".repeat(20));
+                System.out.println("Hello " + username + ".");
+                loggedIn = true;
+                return loggedIn;
             }
-
         }
         System.out.println("Wrong username or pass");
         return false;
@@ -219,11 +215,11 @@ public class Member extends User {
         this.fullName = fullName;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
