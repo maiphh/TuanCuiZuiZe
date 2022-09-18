@@ -1,4 +1,6 @@
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,19 +14,33 @@ public class MemberDatabase extends Database implements Manager {
     MemberDatabase() {
 
     }
+    static void updateMemberDatabase() {
+        try {
+            BufferedWriter out = new BufferedWriter(new FileWriter("Customer.csv", false));
+            out.write(header+"\n");
+            for (Member member: list) {
+                out.write(member.toString()+"\n");
+            }
+            out.close();
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
+    }
     public int getCount() {
         int result = 0;
         try {
 
             Scanner sc = new Scanner(file);
             header = sc.nextLine();
-            System.out.println("start");
+            // System.out.println("start");
             while (!sc.nextLine().equals(null)) {
-                System.out.println("between");
+                // System.out.println("between");
                 result++;
+                if (!sc.hasNext()) break;
             }
-            System.out.println("end");
+            // System.out.println("end");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

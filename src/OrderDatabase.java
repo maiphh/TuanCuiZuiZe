@@ -73,7 +73,7 @@ public class OrderDatabase extends Database implements Manager {
 
     static void updateOrderDatabase() {
         try {
-            BufferedWriter out = new BufferedWriter(new FileWriter("TuanCuiZuiZe/Order.csv", false));
+            BufferedWriter out = new BufferedWriter(new FileWriter("Order.csv", false));
             out.write(header + "\n");
             for (Order order : orders) {
                 out.write(order.toString() + "\n");
@@ -83,7 +83,7 @@ public class OrderDatabase extends Database implements Manager {
             System.out.println(e.getMessage());
         }
         try {
-            BufferedWriter out2 = new BufferedWriter(new FileWriter("TuanCuiZuiZe/Order.csv", false));
+            BufferedWriter out2 = new BufferedWriter(new FileWriter("OrderItem.csv", false));
             out2.write(header2 + "\n");
             for (Order order : orders) {
                 String[] orderItemData = order.productsToString();
@@ -121,7 +121,7 @@ public class OrderDatabase extends Database implements Manager {
         // for (Order order:orders) {
         // order.displayInfo();
         // }
-        TableGenerator.printTable(new File("TuanCuiZuiZe/Order.csv"));
+        TableGenerator.printTable(new File("Order.csv"));
     }
 
     public void displayAllOrderByCustomerId() {

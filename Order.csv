@@ -1,1 +1,4 @@
-﻿ID,Customer ID,Product ID,Product Name,Qty,Status
+oID,userID,date,status,totalPrice
+o1,u1,18/09/2022,PROCESS,100.0
+o2,u1,18/09/2022,PROCESS,450.0
+o3,u1,18/09/2022,PROCESS,245.0

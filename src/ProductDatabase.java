@@ -61,6 +61,33 @@ public class ProductDatabase extends Database implements Public {
         }
     }
 
+    public Product selectedProduct() {
+        loadProductDatabase();
+        Scanner input = new Scanner(System.in);
+        Product currentProduct = null;
+        // Should add a while loop to prevent wrong input
+        System.out.println("Enter the product id: ");
+        String id = input.nextLine();
+        int index;
+        String pIDPatter = "^p[0-9]+$";
+        // must enter a real product
+        while (true) {
+            if (!id.matches(pIDPatter)) {
+                System.out.println("Product ID format incorrect");
+                break;
+            }
+            if (id.equals("0")) break;
+            index = Integer.parseInt(id.substring(1));
+            if (index <= products.size() && index > 0) {
+                return products.get(index-1);
+            }
+            System.out.println("We don't have that ID");
+            break;
+        }   
+        
+        return currentProduct;
+
+    }
     // public int getCount() {
     // loadProductDatabase();
     // return count;

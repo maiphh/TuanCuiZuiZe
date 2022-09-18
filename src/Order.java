@@ -16,7 +16,7 @@ public class Order {
     private String orderDate;
     private String status = "PROCESS";
     private double bill;
-    private static int count = 1;
+    private static int count = 0;
 
     public Order(String[] orderData) {
         this.oID = orderData[0];
@@ -111,7 +111,7 @@ public class Order {
     }
 
     public void displayInfo() {
-        System.out.printf("%s,%s,%s,%.2f\n", userID, status, orderDate, bill);
+        System.out.printf("%s,%s,%s,%s,%.2f\n",oID,userID, status, orderDate, bill);
     }
 
     public void displayAllInfo() {

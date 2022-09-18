@@ -235,6 +235,9 @@ public class Member extends User {
         this.customerId = customerId;
     }
 
+    public void updateSpending(double amount) {
+        spending += amount;
+    }
     @Override
     public String toString() {
         return customerId + "," + userName + "," + password + "," + fullName + "," + phoneNumber + "," + spending;

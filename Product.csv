@@ -1,5 +1,5 @@
 ID,Name,Description,Category,Price,quantity
-1,hello,hello,hello,100,10
-2,world,world,word,50,10
-3,asus,a laptop,lap,1000,100
-p4,glasses,just some glasses,glasses lmao,145.0,56
+p1,hello,hello,hello,100.0,5
+p2,world,world,word,50.0,7
+p3,asus,a laptop,lap,1000.0,100
+p4,glasses,just some glasses,glasses lmao,145.0,55

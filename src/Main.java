@@ -14,12 +14,11 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        System.out.println("helo");
 
         AccessMapping accessMap = new AccessMapping();
         MemberDatabase md = new MemberDatabase();
         // System.out.println(md.getCount());
-        System.out.println(md.getList());
+        // System.out.println(md.getList());
         // System.out.println(md.getCount());
         // System.out.println((new MemberDatabase()).getList());
         // ProductDatabase.loadProductDatabase();
@@ -112,8 +111,11 @@ public class Main {
         String input;
         while (true) {
             System.out.println(
-                    "[1] View all products\n[2] Search Product by category \n[3] Sort product by price\n[4] Start an order \n[5] View information of order by Order ID\n[6] View Personal Info\n[0] Exit\nEnter a number: ");
+                    "[1] View all products\n[2] Search Product by category \n[3] Sort product by price\n[4] Start an order \n[5] View information of order by Order ID\n[6] View Personal Info\n[7] Add product to order\n[8] Pay up order\n[0]Exit\nEnter a number: ");
             input = sc.nextLine();
+            if (currentOrder != null) {
+                currentOrder.displayAllInfo();
+            }
             if (input.equals("0"))
                 break;
             switch (input) {
@@ -149,6 +151,14 @@ public class Main {
                     member.displayInfo();
                     break;
 
+                case "7":
+                    // add product to order
+                    addProductToOrder();
+                    break;
+                case "8":
+                    // pay up order
+                    payUpOrder();
+                    break;
                 default:
                     System.out.println("Invalid input. Please try again!");
                     break;
@@ -219,5 +229,73 @@ public class Main {
         currentOrder = new Order(Member.currentUser.getCustomerId());
         System.out.println("Order succesfully started");
         return;
+    }
+    static void addProductToOrder() {
+        if (currentOrder == null) {
+            System.out.println("You don't have an order yet");
+            return;
+        }
+        Product currentProduct = (new ProductDatabase()).selectedProduct();
+        if (currentProduct == null) return;
+        currentProduct.displayGeneralInfo();
+        String numPattern = "[0-9]+";
+        int userInput;
+
+        if (currentProduct.getQuantity() == 0) {
+            System.out.println("Sorry, we don't have that kind of product");
+            return;
+        }
+        // Scanner input = new Scanner(System.in);
+
+        System.out.println("Enter quantity");
+
+        while (true) {
+            String checkInput = sc.nextLine();
+
+            if (!checkInput.matches(numPattern)) {
+                System.out.println("Please enter a non-negative number: ");
+                continue;
+            }
+            userInput = Integer.parseInt(checkInput);
+            if (userInput == 0) {
+                System.out.println("Hope you can find something else");
+                return;
+            }
+            if (userInput <= currentProduct.getQuantity()) break;
+            System.out.println("We don't have enough for your demand, please input again:");
+        }
+        System.out.println("Item succesfully added");
+        currentOrder.addProduct(currentProduct, userInput);
+        currentProduct = null;
+
+    }
+    static void payUpOrder() {
+        if (currentOrder == null) {
+            System.out.println("You don't have an order");
+            return;
+        }
+        if (currentOrder.getSize() == 0) {
+            System.out.println("You'r order is empty");
+            return;
+        }
+        System.out.printf("Your total bill is %.2f \n", currentOrder.getBill());
+        // store the total bill OR discount bill ?
+        // no discount yet
+        System.out.printf("Your total bill after getting a discount: %.2f \n", currentOrder.getBill());
+        System.out.println("Do you REALLY want to pay now ? Y/N");
+        // Scanner input = new Scanner(System.in);
+        String userInput = sc.nextLine();
+        if (userInput.equals("y")) {
+            Member.currentUser.updateSpending(currentOrder.getBill());
+            MemberDatabase.updateMemberDatabase();
+            ProductDatabase.updateQuantity(currentOrder.boughtQuantity());
+            ProductDatabase.updateProductDatabase();
+            OrderDatabase.addNewOrder(currentOrder);
+            OrderDatabase.updateOrderDatabase();
+            System.out.println("Thank you for shopping with us =))");
+            // Add some update
+            return;
+        }
+
     }
 }
