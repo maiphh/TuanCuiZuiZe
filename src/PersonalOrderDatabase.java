@@ -12,6 +12,7 @@ public class PersonalOrderDatabase extends Database implements Personalized {
     }
 
     public void viewOrderByID() {
+        load();
         if (!this.checkCompatibility()) {
             return;
         }

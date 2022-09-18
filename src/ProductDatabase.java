@@ -125,7 +125,7 @@ public class ProductDatabase extends Database implements Public {
     }
 
     public void displayByCategory() {
-
+        loadProductDatabase();
         if (!this.checkCompatibility()) {
             return;
         }

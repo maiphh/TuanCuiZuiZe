@@ -151,7 +151,7 @@ public class OrderDatabase extends Database implements Manager {
         String oID = input.nextLine();
 
         // Add validation to the input later (MUST ADD);
-
+        
         int wantedIndex = Integer.parseInt(oID.substring(1)) - 1;
         Order wantedOrder = orders.get(wantedIndex);
         wantedOrder.updateStatus();

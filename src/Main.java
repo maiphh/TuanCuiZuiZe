@@ -113,9 +113,9 @@ public class Main {
             System.out.println(
                     "[1] View all products\n[2] Search Product by category \n[3] Sort product by price\n[4] Start an order \n[5] View information of order by Order ID\n[6] View Personal Info\n[7] Add product to order\n[8] Pay up order\n[0]Exit\nEnter a number: ");
             input = sc.nextLine();
-            if (currentOrder != null) {
-                currentOrder.displayAllInfo();
-            }
+            // if (currentOrder != null) {
+            //     currentOrder.displayAllInfo();
+            // }
             if (input.equals("0"))
                 break;
             switch (input) {
@@ -189,7 +189,7 @@ public class Main {
                     break;
                 case "3":
                     // view All orders
-                    admin.viewAllMembers();
+                    admin.viewAllOrders();
                     break;
                 case "4":
                     admin.addProduct();
