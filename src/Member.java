@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Member extends User {
     private String customerId;
@@ -41,11 +42,19 @@ public class Member extends User {
             if (fileLine != "") {
                 if (fileLineArray[1].equals(userName)) {
                     System.out.println("User Name already exists!");
+                    count--;
                     return;
                 }
             }
 
         }
+        String pattern = "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}";
+        if(!(Pattern.compile(pattern).matcher(phoneNumber).matches())){
+            System.out.println("Phone number has to have 10 digits!");
+            count--;
+            return;
+        }
+
 
         System.out.println("Create successfully!");
         BufferedWriter out = new BufferedWriter(new FileWriter("Customer.csv", true));
@@ -91,6 +100,7 @@ public class Member extends User {
 
         String phoneNum = sc.nextLine();
         return new Member(username, pass, fullName, phoneNum);
+
 
     }
 
