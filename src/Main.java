@@ -184,7 +184,7 @@ public class Main {
         String input;
         while (true) {
             System.out.println(
-                    "[1] View all products\n[2] View all Members\n[3] View all Orders\n[4] Add new products\n[5] Get information of Order by Customer ID\n[6] Change status of Order\n[7] View revenue today\n[8] View orders today\n[9] Remove product by id\n[0] Exit\nEnter a number: ");
+                    "[1] View all products\n[2] View all Members\n[3] View all Orders\n[4] Add new products\n[5] Get information of Order by Customer ID\n[6] Change status of Order\n[7] View revenue today\n[8] View orders today\n[9] Remove product by id\n[10] Update Price\n[0] Exit\nEnter a number: ");
             input = sc.nextLine();
             if (input.equals("0")) {
                 User.currentUser = null;
@@ -225,6 +225,11 @@ public class Main {
                     break;
                 case "9":
                     admin.removeProduct();
+
+                    break;
+
+                case "10":
+                    admin.updatePrice();
 
                     break;
 

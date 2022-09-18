@@ -304,6 +304,7 @@ public class ProductDatabase extends Database implements Public {
 
                 i.setPrice(newPrice);
                 System.out.println("Price updated successfully");
+                updateProductDatabase();
                 return;
             }
         }
