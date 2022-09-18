@@ -75,8 +75,11 @@ public class Main {
             System.out.printf(
                     "[1] View all products\n[2] Search Product by category \n[3] Sort product by price \n[4] Register an account \n[0] Exit \nEnter a number: ");
             input = sc.nextLine();
-            if (input.equals("0"))
+            if (input.equals("0")) {
+                User.currentUser = null;
                 break;
+
+            }
             switch (input) {
                 case "1":
                     // View All Products
@@ -114,10 +117,16 @@ public class Main {
                     "[1] View all products\n[2] Search Product by category \n[3] Sort product by price\n[4] Start an order \n[5] View information of order by Order ID\n[6] View Personal Info\n[7] Add product to order\n[8] Pay up order\n[0]Exit\nEnter a number: ");
             input = sc.nextLine();
             // if (currentOrder != null) {
-            //     currentOrder.displayAllInfo();
+            // currentOrder.displayAllInfo();
             // }
-            if (input.equals("0"))
+            if (input.equals("0")) {
+                User.currentUser = null;
+                Member.currentUser = null;
+                (new PersonalMemberDatabase()).clear();
+                (new PersonalOrderDatabase()).clear();
                 break;
+
+            }
             switch (input) {
                 case "1":
                     // View All Product
@@ -144,6 +153,7 @@ public class Main {
                 case "5":
                     // View Information of Order by Order ID
                     member.viewOrderByID();
+                    break;
 
                 case "6":
                     // System.out.println(member.displayInfo());
@@ -176,8 +186,11 @@ public class Main {
             System.out.println(
                     "[1] View all products\n[2] View all Members\n[3] View all Orders\n[4] Add new products\n[5] Update price\n[6] Get information of Order by Customer ID\n[7] Change status of Order\n[0] Exit\nEnter a number: ");
             input = sc.nextLine();
-            if (input.equals("0"))
+            if (input.equals("0")) {
+                User.currentUser = null;
                 break;
+
+            }
             switch (input) {
                 case "1":
                     // view All products
@@ -230,13 +243,15 @@ public class Main {
         System.out.println("Order succesfully started");
         return;
     }
+
     static void addProductToOrder() {
         if (currentOrder == null) {
             System.out.println("You don't have an order yet");
             return;
         }
         Product currentProduct = (new ProductDatabase()).selectedProduct();
-        if (currentProduct == null) return;
+        if (currentProduct == null)
+            return;
         currentProduct.displayGeneralInfo();
         String numPattern = "[0-9]+";
         int userInput;
@@ -261,7 +276,8 @@ public class Main {
                 System.out.println("Hope you can find something else");
                 return;
             }
-            if (userInput <= currentProduct.getQuantity()) break;
+            if (userInput <= currentProduct.getQuantity())
+                break;
             System.out.println("We don't have enough for your demand, please input again:");
         }
         System.out.println("Item succesfully added");
@@ -269,6 +285,7 @@ public class Main {
         currentProduct = null;
 
     }
+
     static void payUpOrder() {
         if (currentOrder == null) {
             System.out.println("You don't have an order");

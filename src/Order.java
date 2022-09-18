@@ -111,7 +111,14 @@ public class Order {
     }
 
     public void displayInfo() {
-        System.out.printf("%s,%s,%s,%s,%.2f\n",oID,userID, status, orderDate, bill);
+        // System.out.printf("%s,%s,%s,%s,%.2f\n", oID, userID, orderDate, status,
+        // bill);
+        System.out.println(this.toString());
+        // Scanner sc = new Scanner("Order.csv");
+        // String infoHeader = sc.nextLine();
+        // ArrayList<Order> newList = new ArrayList<>();
+        // newList.add(this);
+        // TableGenerator.printTable(newList, infoHeader);
     }
 
     public void displayAllInfo() {
@@ -143,7 +150,7 @@ public class Order {
     public HashMap<String, Integer> boughtQuantity() {
         HashMap<String, Integer> quantityPerProduct = new HashMap<>();
         for (String[] i : this.products) {
-            System.out.println(i[0]);
+            // System.out.println(i[0]);
             quantityPerProduct.put(i[1], Integer.parseInt(i[4]));
         }
         return quantityPerProduct;

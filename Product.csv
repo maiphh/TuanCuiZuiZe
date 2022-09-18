@@ -1,5 +1,7 @@
 ID,Name,Description,Category,Price,quantity
-p1,hello,hello,hello,100.0,5
-p2,world,world,word,50.0,5
-p3,asus,a laptop,lap,1000.0,100
-p4,glasses,just some glasses,glasses lmao,145.0,50
+p1,greenie,greenie,greenie,78.0,0
+p2,greenie,greenie,greenie,78.0,6
+p3,glass,glass,glass,89.0,7
+p4,glass,glasses,buh,67.0,0
+p5,keyboard,key,board,99.0,56
+p6,pen,pen,pen,56.0,4

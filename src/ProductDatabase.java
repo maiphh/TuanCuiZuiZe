@@ -1,5 +1,6 @@
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,6 +47,36 @@ public class ProductDatabase extends Database implements Public {
 
     }
 
+    public ProductDatabase() {
+        loadProductDatabase();
+    }
+
+    // public int getCount() {
+    // int result = 0;
+    // // loadProductDatabase();
+    // try {
+    // // File newFile = new File("Product.csv");
+
+    // Scanner sc = new Scanner(file);
+    // header = sc.nextLine();
+    // // System.out.println("start");
+    // while (!sc.nextLine().equals(null)) {
+    // // System.out.println("between");
+    // result++;
+    // if (!sc.hasNext())
+    // break;
+    // }
+    // // System.out.println("end");
+
+    // } catch (Exception e) {
+    // // System.out.println(e.getMessage());
+    // System.out.println("weee");
+    // }
+    // count = result;
+    // return count;
+
+    // }
+
     static void updateProductDatabase() {
         try {
 
@@ -76,15 +107,16 @@ public class ProductDatabase extends Database implements Public {
                 System.out.println("Product ID format incorrect");
                 break;
             }
-            if (id.equals("0")) break;
+            if (id.equals("0"))
+                break;
             index = Integer.parseInt(id.substring(1));
             if (index <= products.size() && index > 0) {
-                return products.get(index-1);
+                return products.get(index - 1);
             }
             System.out.println("We don't have that ID");
             break;
-        }   
-        
+        }
+
         return currentProduct;
 
     }
@@ -94,22 +126,28 @@ public class ProductDatabase extends Database implements Public {
     // }
 
     static void loadProductDatabase() {
-        if (loaded)
+        // System.out.println("loading...");
+        if (loaded) {
+
             return;
+        }
         try {
 
             Scanner sc = new Scanner(file);
             header = sc.nextLine();
             while (sc.hasNextLine()) {
                 String[] productData = sc.nextLine().split(",");
+                System.out.println(Arrays.toString(productData));
 
                 Product newProduct = new Product(productData);
                 products.add(newProduct);
-                count++;
+                // count++;
             }
             loaded = true;
-
+            System.out.println(products);
+            sc.close();
         } catch (Exception e) {
+            System.out.println("wee");
             System.out.println(e.getMessage());
         }
     }
@@ -229,6 +267,7 @@ public class ProductDatabase extends Database implements Public {
         if (!this.checkCompatibility()) {
             return;
         }
+        loadProductDatabase();
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the wanted update price product");
         String upPriceProduct = input.nextLine();

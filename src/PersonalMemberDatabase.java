@@ -15,6 +15,7 @@ public class PersonalMemberDatabase extends Database implements Personalized {
     }
 
     public void displayAll() {
+        load();
         if (!this.checkCompatibility()) {
             return;
         }
@@ -30,6 +31,12 @@ public class PersonalMemberDatabase extends Database implements Personalized {
     @Override
     public String getHeader() {
         return header;
+    }
+
+    @Override
+    public void clear() {
+        list = null;
+        loaded = false;
     }
 
 }

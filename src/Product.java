@@ -8,6 +8,7 @@ public class Product {
 
     // private static int currentID = (new ProductDatabase()).getCount();
     private static int currentID = 0;
+    // private static int currentID = 0;
 
     public Product() {
     }
@@ -29,7 +30,7 @@ public class Product {
         this.category = productData[3];
         this.price = Double.parseDouble(productData[4]);
         this.quantity = Integer.parseInt(productData[5]);
-
+        currentID++;
     }
 
     public void displayGeneralInfo() {
