@@ -2,7 +2,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
+// import java.util.HashMap;
 import java.util.Scanner;
 
 public class OrderDatabase extends Database implements Manager {
@@ -129,13 +129,18 @@ public class OrderDatabase extends Database implements Manager {
             return;
         }
         loadOrderDatabase();
+        int validID = 0;
         Scanner input = new Scanner(System.in);
         System.out.println("Enter customer ID");
         String mID = input.nextLine();
         for (Order order : orders) {
             if (order.getUser().equals(mID)) {
                 order.displayInfo();
+                validID++;
             }
+        }
+        if (validID == 0) {
+            System.out.println("We don't have that user ID");
         }
         // input.close();
         // Add validation to the input later (MUST ADD);
@@ -149,10 +154,17 @@ public class OrderDatabase extends Database implements Manager {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the wanted order");
         String oID = input.nextLine();
-
-        // Add validation to the input later (MUST ADD);
-
+        // OID validation
+        String oIDPattern = "^o[0-9]+$";
+        if (!oID.matches(oIDPattern)) {
+            System.out.println("Invalide order ID");
+            return;
+        }
         int wantedIndex = Integer.parseInt(oID.substring(1)) - 1;
+        if (wantedIndex > orders.size() || wantedIndex <= 0) {
+            System.out.println("We don't have that order");
+            return;
+        }
         Order wantedOrder = orders.get(wantedIndex);
         wantedOrder.updateStatus();
         System.out.println("Status update succesfully");

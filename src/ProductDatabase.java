@@ -271,14 +271,28 @@ public class ProductDatabase extends Database implements Public {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the wanted update price product");
         String upPriceProduct = input.nextLine();
-
+        String doublePattern = "^[1-9][0-9]+\\.?[0-9]+$";
         // Add validation to the input later (MUST ADD);
+        for (Product i : products) {
+            if (i.getID().equals(upPriceProduct)) {
+                System.out.println("Enter the wanted Price");
+                String price = input.nextLine();
+                if (!price.matches(doublePattern)) {
+                    System.out.println("You have to enter a double");
+                    return;
+                }
+                double newPrice = Double.parseDouble(price);
 
-        int wantedIndex = Integer.parseInt(upPriceProduct.substring(1)) - 1;
-        Product wantedProduct = products.get(wantedIndex);
-        System.out.println("Enter wanted price: ");
-        double newPrice = input.nextDouble();
-        wantedProduct.setPrice(newPrice);
+                i.setPrice(newPrice);
+                System.out.println("Price updated successfully");
+            }
+        }
+        System.out.println("We don't have that product");
+        // int wantedIndex = Integer.parseInt(upPriceProduct.substring(1)) - 1;
+        // Product wantedProduct = products.get(wantedIndex);
+        // System.out.println("Enter wanted price: ");
+        // double newPrice = input.nextDouble();
+        // wantedProduct.setPrice(newPrice);
         // input.close();
         updateProductDatabase();
     }
