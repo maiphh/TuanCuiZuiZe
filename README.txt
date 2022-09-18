@@ -2,4 +2,5 @@
 github repo: 
 https://github.com/maiphh/TuanCuiZuiZe
 
-presentation video link: 
+Presentation video URL: 
+https://youtu.be/HyPlSHX4qQg
