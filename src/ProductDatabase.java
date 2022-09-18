@@ -179,10 +179,10 @@ public class ProductDatabase extends Database implements Public {
                 has = true;
             }
         }
-        if(has) {
+        if (has) {
             TableGenerator.printTable(results, header);
-        }
-        else System.out.println("There is no "+input+" category!");
+        } else
+            System.out.println("There is no " + input + " category!");
     }
 
     //
@@ -304,6 +304,7 @@ public class ProductDatabase extends Database implements Public {
 
                 i.setPrice(newPrice);
                 System.out.println("Price updated successfully");
+                return;
             }
         }
         System.out.println("We don't have that product");
@@ -314,6 +315,37 @@ public class ProductDatabase extends Database implements Public {
         // wantedProduct.setPrice(newPrice);
         // input.close();
         updateProductDatabase();
+    }
+
+    public void removeProduct() {
+        if (!this.checkCompatibility()) {
+            return;
+        }
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the id of the product you want to remove");
+        String id = sc.nextLine();
+        int breakPoint = 0;
+        boolean has = false;
+
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getID().equals(id)) {
+                products.remove(i);
+                breakPoint = i;
+                has = true;
+                break;
+            }
+        }
+        if (has) {
+            for (int i = breakPoint; i < products.size(); i++) {
+                products.get(i).setID("p" + (i + 1));
+            }
+            updateProductDatabase();
+            System.out.println("Removed successfully!");
+            breakPoint = 0;
+        } else {
+            System.out.println("Invalid input");
+        }
     }
 
     @Override

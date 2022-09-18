@@ -13,6 +13,10 @@ public class Product {
     public Product() {
     }
 
+    public void setID(String pID) {
+        this.pID = pID;
+    }
+
     public Product(String name, String description, String category, String price, String quantity) {
         this.name = name;
         this.description = description;
@@ -70,7 +74,8 @@ public class Product {
 
     @Override
     public String toString() {
-        return pID + "," + name + "," + description + "," + category + "," + price + "," + quantity;
+        return pID + "," + name + "," + description + "," + category + "," + String.format("%.2f", price) + ","
+                + quantity;
     }
 
     // For admin only

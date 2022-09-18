@@ -71,4 +71,22 @@ public class Admin extends User {
             (new OrderDatabase()).displayAllOrders();
         }
     }
+
+    public void viewRevenueToday() throws FileNotFoundException {
+        if (loggedIn) {
+            System.out.println("The revenue of today is: " + (new OrderDatabase()).calculateRevenue());
+        }
+    }
+
+    public void viewOrdersToday() throws FileNotFoundException {
+        if (loggedIn) {
+            (new OrderDatabase()).viewOrdersToday();
+        }
+    }
+
+    public void removeProduct() {
+        if (loggedIn) {
+            (new ProductDatabase()).removeProduct();
+        }
+    }
 }

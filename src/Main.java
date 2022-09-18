@@ -14,14 +14,12 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
+        System.out.println(
+                "COSC2081 GROUP ASSIGNMENT \nSTORE ORDER MANAGEMENT SYSTEM \nInstructor: Mr. Minh Vu \nGroup: Group 9 \ns3927588, Nguyen Ngoc Khanh Linh \ns3927220, Nguyen Minh Nguyen \ns3927049, Mai Gia Phu \ns3927198, Nguyen Duc Quang");
 
         AccessMapping accessMap = new AccessMapping();
-        MemberDatabase md = new MemberDatabase();
-        // System.out.println(md.getCount());
-        // System.out.println(md.getList());
-        // System.out.println(md.getCount());
-        // System.out.println((new MemberDatabase()).getList());
-        // ProductDatabase.loadProductDatabase();
+        // MemberDatabase md = new MemberDatabase();
+
         loginMenu();
     }
 
@@ -33,8 +31,10 @@ public class Main {
             System.out.println(
                     "[1] Login As Guest\n[2] Login As Member\n[3] Login As Admin\n[4] Register an account\n[0] Exit\nEnter a number: ");
             input = sc.nextLine();
-            if (input.equals("0"))
+            if (input.equals("0")) {
+                System.exit(0);
                 break;
+            }
             switch (input) {
                 case "1":
 
@@ -184,7 +184,7 @@ public class Main {
         String input;
         while (true) {
             System.out.println(
-                    "[1] View all products\n[2] View all Members\n[3] View all Orders\n[4] Add new products\n[5] Update price\n[6] Get information of Order by Customer ID\n[7] Change status of Order\n[0] Exit\nEnter a number: ");
+                    "[1] View all products\n[2] View all Members\n[3] View all Orders\n[4] Add new products\n[5] Get information of Order by Customer ID\n[6] Change status of Order\n[7] View revenue today\n[8] View orders today\n[9] Remove product by id\n[0] Exit\nEnter a number: ");
             input = sc.nextLine();
             if (input.equals("0")) {
                 User.currentUser = null;
@@ -209,15 +209,23 @@ public class Main {
                     break;
 
                 case "5":
-                    admin.updatePrice();
-                    break;
-
-                case "6":
                     admin.getOrderInfoByCid();
                     break;
 
-                case "7":
+                case "6":
                     admin.changeOrderStatus();
+                    break;
+                case "7":
+                    admin.viewRevenueToday();
+                    ;
+                    break;
+                case "8":
+                    admin.viewOrdersToday();
+
+                    break;
+                case "9":
+                    admin.removeProduct();
+
                     break;
 
                 default:
@@ -300,18 +308,20 @@ public class Main {
         // no discount yet
         Member.currentUser.checkUpgrade(Member.currentUser);
         System.out.printf("Your total bill after getting a discount: %.2f \n",
-                currentOrder.getBill() * (1 - Member.currentUser.getDiscount()));
+                currentOrder.getBill() * (1 - Member.currentUser.checkUpgrade(Member.currentUser)));
         System.out.println("Do you REALLY want to pay now ? Y/N");
         // Scanner input = new Scanner(System.in);
         String userInput = sc.nextLine();
         if (userInput.equals("y")) {
-            Member.currentUser.updateSpending(currentOrder.getBill());
+            Member.currentUser
+                    .updateSpending(currentOrder.getBill() * (1 - Member.currentUser.checkUpgrade(Member.currentUser)));
             MemberDatabase.updateMemberDatabase();
             ProductDatabase.updateQuantity(currentOrder.boughtQuantity());
             ProductDatabase.updateProductDatabase();
             OrderDatabase.addNewOrder(currentOrder);
             OrderDatabase.updateOrderDatabase();
             System.out.println("Thank you for shopping with us =))");
+            currentOrder = null;
             // Add some update
             return;
         }

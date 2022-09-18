@@ -1,8 +1,12 @@
 ID,Name,Description,Category,Price,quantity
-p1,greenie,greenie,greenie,78.0,0
-p2,greenie,greenie,greenie,78.0,1
-p3,glass,glass,glass,89.0,7
-p4,glass,glasses,buh,67.0,0
-p5,keyboard,key,board,99.0,56
-p6,pen,pen,pen,56.0,4
-p7,dksan,dsamlksad,dmsak,231.0,21
+p1,iphone 12,This is an Iphone,iPhone,15000000.00,1
+p2,NEW IPHONE,Newest Iphone,iPhone,20000000.00,19
+p3,SamSung ABC,SamSung very good,Android,18000000.00,6
+p4,SamSung Fold,It can fold,Android,50000000.00,4
+p5,NEW GEN NOKIA,Not a brick anymore,Android,2000000.00,12
+p6,AIRPOD PRO,New Airpod,Accessories,3000000.00,37
+p7,AIRPOD ONE,Old airpods,Accessories,1000000.00,100
+p8,Charger Cable,Use to charge,Accessories,500000.00,2000
+p9,Phone Case,Protect your phone,Accessories,11111111.00,1993
+p10,lamp,just a lamp,lamp,1000.00,78
+p11,bottle,water container,bottle,99999.00,45

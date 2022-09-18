@@ -35,6 +35,10 @@ public class Order {
         // count++;
     }
 
+    public String getDate() {
+        return this.orderDate;
+    }
+
     public void addProduct(Product product, int quantity) {
 
         // 4 is the number of header in orderitem.csv
@@ -133,7 +137,8 @@ public class Order {
     }
 
     public String toString() {
-        String[] orderData = { this.oID, this.userID, this.orderDate, this.status, Double.toString(this.bill) };
+        String[] orderData = { this.oID, this.userID, this.orderDate, this.status,
+                String.format("%.2f", Double.toString(this.bill)) };
         String data = String.join(",", orderData);
         return data;
     }

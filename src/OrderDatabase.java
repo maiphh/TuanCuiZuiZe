@@ -1,7 +1,11 @@
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 // import java.util.HashMap;
 import java.util.Scanner;
 
@@ -11,17 +15,12 @@ public class OrderDatabase extends Database implements Manager {
     private static String header;
     private static String header2;
 
-    static void deleteOrder() {
-        orders.remove(orders.size() - 1);
-
-    }
-
-    static Order createOrder(String userID) {
-        loadOrderDatabase();
-        Order newOrder = new Order(userID);
-        orders.add(newOrder);
-        return newOrder;
-    }
+    // static Order createOrder(String userID) {
+    // loadOrderDatabase();
+    // Order newOrder = new Order(userID);
+    // orders.add(newOrder);
+    // return newOrder;
+    // }
 
     static void addNewOrder(Order newOrder) {
         loadOrderDatabase();
@@ -97,22 +96,59 @@ public class OrderDatabase extends Database implements Manager {
         }
     }
 
-    static void seeOrderDetail(String uid) {
-        // May add an option for see all of a user's order
-        loadOrderDatabase();
-        Scanner input = new Scanner(System.in);
-        System.out.println("Input your order ID");
-        String oID = input.nextLine();
-        for (Order order : orders) {
-            if (order.getID().equals(oID) && order.getUser().equals(uid)) {
-                order.displayInfo();
-                return;
-            }
-        }
-        System.out.println("You don't have that order");
-    }
+    // static void seeOrderDetail(String uid) {
+    // // May add an option for see all of a user's order
+    // loadOrderDatabase();
+    // Scanner input = new Scanner(System.in);
+    // System.out.println("Input your order ID");
+    // String oID = input.nextLine();
+    // for (Order order : orders) {
+    // if (order.getID().equals(oID) && order.getUser().equals(uid)) {
+    // order.displayInfo();
+    // return;
+    // }
+    // }
+    // System.out.println("You don't have that order");
+    // }
 
     // for admin only
+    public String calculateRevenue() throws FileNotFoundException {
+        if (this.checkCompatibility()) {
+            double result = 0;
+            String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            Scanner sc = new Scanner(new File("Order.csv"));
+            String s = sc.nextLine();
+            while (sc.hasNextLine()) {
+                String[] data = sc.nextLine().split(",");
+                String date = data[2];
+                if (today.equals(date)) {
+                    result += Double.parseDouble(data[4]);
+                }
+            }
+            return String.format("%.2f", result);
+        }
+        return null;
+
+    }
+
+    public void viewOrdersToday() throws FileNotFoundException {
+        if (!this.checkCompatibility()) {
+            return;
+        }
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        Scanner sc = new Scanner(new File("Order.csv"));
+        String s = sc.nextLine();
+        while (sc.hasNextLine()) {
+            String[] data = sc.nextLine().split(",");
+            String date = data[2];
+            if (today.equals(date)) {
+                System.out.println(Arrays.asList(data));
+                System.out.println("-".repeat(25));
+            }
+        }
+
+    }
+
     public void displayAllOrders() {
         if (!this.checkCompatibility()) {
             return;

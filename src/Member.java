@@ -49,12 +49,11 @@ public class Member extends User {
 
         }
         String pattern = "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}";
-        if(!(Pattern.compile(pattern).matcher(phoneNumber).matches())){
+        if (!(Pattern.compile(pattern).matcher(phoneNumber).matches())) {
             System.out.println("Phone number has to have 10 digits!");
             count--;
             return;
         }
-
 
         System.out.println("Create successfully!");
         BufferedWriter out = new BufferedWriter(new FileWriter("Customer.csv", true));
@@ -100,7 +99,6 @@ public class Member extends User {
 
         String phoneNum = sc.nextLine();
         return new Member(username, pass, fullName, phoneNum);
-
 
     }
 
@@ -174,21 +172,27 @@ public class Member extends User {
         }
     }
 
-    public void checkUpgrade(Member member) {
+    public double checkUpgrade(Member member) {
+        double result = 0;
         if (this.spending > PlatinumMember.getSpendingThreshold()) {
             PlatinumMember platinumMember = new PlatinumMember(member);
-            Member.currentUser = platinumMember;
-            User.currentUser = platinumMember;
+            result = platinumMember.getDiscount();
+            // Member.currentUser = platinumMember;
+            // User.currentUser = platinumMember;
 
         } else if (this.spending > GoldMember.getSpendingThreshold()) {
             GoldMember goldMember = new GoldMember(member);
-            Member.currentUser = goldMember;
-            User.currentUser = goldMember;
+            // Member.currentUser = goldMember;
+            // User.currentUser = goldMember;
+            result = goldMember.getDiscount();
         } else if (this.spending > SilverMember.getSpendingThreshold()) {
             SilverMember silverMember = new SilverMember(member);
-            Member.currentUser = silverMember;
-            User.currentUser = silverMember;
+            result = silverMember.getDiscount();
+            // Member.currentUser = silverMember;
+            // User.currentUser = silverMember;
         }
+        return result;
+
     }
 
     // public void buy(Order order) {
@@ -258,6 +262,7 @@ public class Member extends User {
 
     @Override
     public String toString() {
-        return customerId + "," + userName + "," + password + "," + fullName + "," + phoneNumber + "," + spending;
+        return customerId + "," + userName + "," + password + "," + fullName + "," + phoneNumber + ","
+                + String.format("%.2f", spending);
     }
 }
