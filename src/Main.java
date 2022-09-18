@@ -298,7 +298,9 @@ public class Main {
         System.out.printf("Your total bill is %.2f \n", currentOrder.getBill());
         // store the total bill OR discount bill ?
         // no discount yet
-        System.out.printf("Your total bill after getting a discount: %.2f \n", currentOrder.getBill());
+        Member.currentUser.checkUpgrade(Member.currentUser);
+        System.out.printf("Your total bill after getting a discount: %.2f \n",
+                currentOrder.getBill() * (1 - Member.currentUser.getDiscount()));
         System.out.println("Do you REALLY want to pay now ? Y/N");
         // Scanner input = new Scanner(System.in);
         String userInput = sc.nextLine();

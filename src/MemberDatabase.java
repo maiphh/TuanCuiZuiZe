@@ -14,20 +14,21 @@ public class MemberDatabase extends Database implements Manager {
     MemberDatabase() {
 
     }
+
     static void updateMemberDatabase() {
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter("Customer.csv", false));
-            out.write(header+"\n");
-            for (Member member: list) {
-                out.write(member.toString()+"\n");
+            out.write(header + "\n");
+            for (Member member : list) {
+                out.write(member.toString() + "\n");
             }
             out.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
     }
+
     public int getCount() {
         int result = 0;
         try {
@@ -38,7 +39,8 @@ public class MemberDatabase extends Database implements Manager {
             while (!sc.nextLine().equals(null)) {
                 // System.out.println("between");
                 result++;
-                if (!sc.hasNext()) break;
+                if (!sc.hasNext())
+                    break;
             }
             // System.out.println("end");
 
@@ -61,6 +63,7 @@ public class MemberDatabase extends Database implements Manager {
                 String[] data = sc.nextLine().split(",");
 
                 Member newMember = new Member(data);
+                // newMember.checkUpgrade(newMember);
                 list.add(newMember);
                 count++;
             }

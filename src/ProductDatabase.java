@@ -137,14 +137,14 @@ public class ProductDatabase extends Database implements Public {
             header = sc.nextLine();
             while (sc.hasNextLine()) {
                 String[] productData = sc.nextLine().split(",");
-                System.out.println(Arrays.toString(productData));
+                // System.out.println(Arrays.toString(productData));
 
                 Product newProduct = new Product(productData);
                 products.add(newProduct);
                 // count++;
             }
             loaded = true;
-            System.out.println(products);
+            // System.out.println(products);
             sc.close();
         } catch (Exception e) {
             System.out.println("wee");

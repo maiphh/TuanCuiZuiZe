@@ -14,10 +14,6 @@ public class Member extends User {
     private String phoneNumber;
     private double spending;
     private double discount = 0;
-    private final long SILVER_MEM = 5_000_000;
-    private final long GOLD_MEM = 10_000_000;
-    private final long DIAMOND_MEM = 25_000_000;
-
     // static MemberDatabase md = new MemberDatabase();
     // private static int count = md.getCount();
     private static int count = (new MemberDatabase()).getCount();
@@ -168,23 +164,34 @@ public class Member extends User {
         }
     }
 
-    public void checkUpgrade() {
-        if (this.spending > DIAMOND_MEM) {
-            this.discount = 0.15;
-        } else if (this.spending > GOLD_MEM) {
-            this.discount = 0.1;
-        } else if (this.spending > SILVER_MEM) {
-            this.discount = 0.05;
+    public void checkUpgrade(Member member) {
+        if (this.spending > PlatinumMember.getSpendingThreshold()) {
+            PlatinumMember platinumMember = new PlatinumMember(member);
+            Member.currentUser = platinumMember;
+            User.currentUser = platinumMember;
+
+        } else if (this.spending > GoldMember.getSpendingThreshold()) {
+            GoldMember goldMember = new GoldMember(member);
+            Member.currentUser = goldMember;
+            User.currentUser = goldMember;
+        } else if (this.spending > SilverMember.getSpendingThreshold()) {
+            SilverMember silverMember = new SilverMember(member);
+            Member.currentUser = silverMember;
+            User.currentUser = silverMember;
         }
     }
 
-    public void buy(Order order) {
-        this.spending = (this.getSpending() + order.getBill());
-        this.checkUpgrade();
-    }
+    // public void buy(Order order) {
+    // this.spending = (this.getSpending() + order.getBill());
+    // this.checkUpgrade(this);
+    // }
 
     public double getDiscount() {
         return this.discount;
+    }
+
+    public void setSpending(double spending) {
+        this.spending = spending;
     }
 
     public double getSpending() {
@@ -238,6 +245,7 @@ public class Member extends User {
     public void updateSpending(double amount) {
         spending += amount;
     }
+
     @Override
     public String toString() {
         return customerId + "," + userName + "," + password + "," + fullName + "," + phoneNumber + "," + spending;
