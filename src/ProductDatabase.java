@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class ProductDatabase extends Database implements Public {
     private static ArrayList<Product> products = new ArrayList<>();
@@ -170,13 +171,18 @@ public class ProductDatabase extends Database implements Public {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter category: ");
         String input = sc.nextLine();
+        boolean has = false;
         ArrayList<Product> results = new ArrayList<Product>();
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getCategory().equals(input) && products.get(i).getQuantity() > 0) {
                 results.add(products.get(i));
+                has = true;
             }
         }
-        TableGenerator.printTable(results, header);
+        if(has) {
+            TableGenerator.printTable(results, header);
+        }
+        else System.out.println("There is no "+input+" category!");
     }
 
     //
@@ -252,10 +258,23 @@ public class ProductDatabase extends Database implements Public {
         String description = input.nextLine();
         System.out.println("Enter product category:");
         String category = input.nextLine();
+
         System.out.println("Enter product quantity:");
         String quantity = input.nextLine();
+        String pattern = "[0-9]+";
+        if (!(Pattern.compile(pattern).matcher(quantity).matches())) {
+            System.out.println("Invalid input. Please try again!");
+            return;
+        }
+
         System.out.println("Enter product price:");
         String price = input.nextLine();
+
+        if (!(Pattern.compile(pattern).matcher(price).matches())) {
+            System.out.println("Invalid input. Please try again!");
+            return;
+        }
+
         products.add(new Product(name, description, category, price, quantity));
         // Category.addCategory(category);
         System.out.println("Product added successfully");
